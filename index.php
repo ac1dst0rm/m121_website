@@ -1,12 +1,19 @@
 <?php
 
-	include(".php"); 		
+/*
+* Author: Sven Gasser
+* Content: 
+*/
+	// Inkludieren der erstellten Funktionen 
+	include("resources/libary/function.php"); 	
+
 	$link=Connection();
-	$result=mysql_query("SELECT * FROM `tempLog` ORDER BY `timeStamp` DESC",$link);
+	$sql = "SELECT * FROM products";
 	
 	//Funktion einbinden
   ?>
 
+<!--Beginn HTML-->
 <html>
    <head>
       <title> RFID Scanner </title>
@@ -23,16 +30,12 @@
 			<td>&nbsp;Moisture 1&nbsp;</td>
 		</tr>
 
-      <?php 
-        //   IF-Afrage für dynamisches Auslesen
-		  if($result!==FALSE){
-		     while($row = mysql_fetch_array($result)) {
-		        printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td></tr>", 
-		           $row["timeStamp"], $row["temperature"], $row["humidity"]);
-		     }
-		     mysql_free_result($result);
-		     mysql_close();
-		  }
+	  <?php 
+	  $output = getProduct();
+
+	  print $output;
+	
+		 
       ?>
 
    </table>
