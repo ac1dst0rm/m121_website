@@ -16,28 +16,28 @@
 <!--Beginn HTML-->
 <html>
    <head>
-      <title> RFID Scanner </title>
+	   <!-- Dieser Text wird im Browser-Tab angezeigt. -->
+	  <title> RFID Scanner </title>
+	  <link rel="stylesheet" href="/css/main.css">
    </head>
-<body>
-   <h1> Wilkommen zum RFID Scanner. </h1>
 
-    <t5> Hilfe <t5>
+	<body>
 
-   <table border="1" cellspacing="1" cellpadding="1">
-		<tr>
-			<td>&nbsp;Timestamp&nbsp;</td>
-			<td>&nbsp;Temperature 1&nbsp;</td>
-			<td>&nbsp;Moisture 1&nbsp;</td>
-		</tr>
+		<div class="center"> 
+			<h1> Bitte halten Sie das Produkt an den Leser. </h1>
+		</div>
 
-	  <?php 
-	  $output = getProduct();
+			<?php 
+		     	// getScan wird auf false gesetzt. 
+				$getScan = false;
+		
+				// Schreiben des Produkts in eine  Variable
+				$output = getProduct();
 
-	  print $output;
-	
-		 
-      ?>
+				// Das Produkt ausgeben (Funktion getProduct)
+				print $output;
+			?>
 
-   </table>
-</body>
+		</table>
+	</body>
 </html>

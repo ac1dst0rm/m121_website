@@ -5,9 +5,6 @@
 * Content: Delivering functions for the application
 */
 
-// Inkludieren von db_config beinhaltet globale Variablen für die DB-Anbindung)
-include("../config/db_config.php"); 
-
 //-----------------------------------------------------
 // Funktion getProduct
 //-----------------------------------------------------
@@ -39,7 +36,6 @@ function setProduct() {
 		mysql_free_result($result);
 		mysql_close();
 	 }
-	
 }
 
 //-----------------------------------------------------
@@ -50,20 +46,33 @@ function setProduct() {
 
 	  // Verbindung als Funktion
     function Connection(){
-        
-        // Der Connector (PDO), die Angaben stammen aus db_config
-		$connection = new PDO('mysql:host=$db_host;dbname=$db_name', '$db_user', 'db_pass');
+	
+        // Der Connector (PDO); Diese Anmlededaten könnten auch ausgelagert werden. 
+		$connection = new PDO('mysql:host=localhost;dbname=hermes_core', 'hermes_appusr', 'ZmuFbj2or2KPqFyn');
 
         // Errorhandling 
 		if (!$connection) {
 	    	die('MySQL ERROR: ' . mysql_error());
 		}
-        
-        // falls keine Datenbank mit dem angegebenen Namen gefunden wurde
-		mysql_select_db($db) or die( 'MySQL ERROR: '. mysql_error() );
 
-            // Zum Schluss geben wir den Rückgabewert aus
+		// Zum Schluss geben wir den Rückgabewert aus
         	return $connection;
 	}
-	
+
+//-----------------------------------------------------
+// Funktion Connection
+//-----------------------------------------------------
+
+/* Diese Funktion loggt die Produktescans, um Statistiken zu erstellen */
+
+	function setLog() {
+		
+		// Neue Datenbankverbindung aufbauen
+		$newConn = Connection();
+
+		// Jeder Produktescan wird in der Datenbank erfasst
+		$query = ""
+		($pdo->query($query)
+	}
+
 ?>
