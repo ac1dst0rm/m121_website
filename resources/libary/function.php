@@ -2,41 +2,61 @@
 
 /*
 * Author: Sven Gasser
-* Content: Delivering functions for the application
+* Content: Delivering functions for the application. 
 */
 
 //-----------------------------------------------------
 // Funktion getProduct
 //-----------------------------------------------------
 
-/* Diese Funktion führt die Abfrage der Daten durch und stellt sie dar (Layout wird von CSS bestummen) */
+/* Diese Funktion führt die Abfrage der Daten durch und stellt die Produkte am Ort des Aufrufes (index.php) dar (Layout wird von CSS bestummen) */
 
-function getProduct($conn) {
-		$sql = 'SELECT name, color, calories FROM fruit ORDER BY name';
-		foreach ($conn->query($sql) as $row) {
-			print $row['name'] . "\t";
-			print $row['color'] . "\t";
-			print $row['calories'] . "\n";
-		}
-    }
+function getProduct() {
+
+	// Neue Datenbankverbindung als Variable pdo
+	$pdo=Connection()
+
+		// Die Abfrage nach der RFID-ID. Dabei wird der letze Scan ausgelesen (letzer Scan wird anhand der Zeit ermittelt und dann mittels Selektor ausgewählt)
+		$sql = 'SELECT product_logged_rfid FROM product_log, ORDER BY Timestamp DESC limit 1;';
+		($pdo->query($sql);
+
+		// Der Inhalt der Query $sql wird an $rfid_id zugewiesen
+		$id = $sql;
+
+		// Neue Abfrage nach dem Produkt, Variable $sql wird überschrieben
+		$sql = 'SELECT * FROM product WHERE product_rfid = '$rfid_id';';
+
+			// Ausgabe des Produktes 
+			
+
+			foreach ($conn->query($sql) as $row) {
+				print $row['name'] . "\t";
+				print $row['color'] . "\t";
+				print $row['calories'] . "\n";
+			}
+
+	// Die $pdo-Variable setzen wir auf null (die Connection wird damit geschlossen)
+	$pdo = null;
+	
+}
 
 //-----------------------------------------------------
 // Funktion setProduct
 //-----------------------------------------------------
 
-/* Diese Funktion wird für die DB-Anbindung benötigt. */
+/* Diese Funktion wird für das Hinzufügen von neuden Produkten benötigt. */
 
 function setProduct() {
-	
-	if($result!==FALSE){
-		while($row = mysql_fetch_array($result)) {
-		   printf("<tr><td> &nbsp;%s </td><td> &nbsp;%s&nbsp; </td><td> &nbsp;%s&nbsp; </td></tr>", 
-			  $row["timeStamp"], $row["temperature"], $row["humidity"]);
-		}
-		mysql_free_result($result);
-		mysql_close();
-	 }
-}
+
+	$pdo=Connection()
+
+		// Neue Daten hinzufügen
+		$sql = 'SELECT product_logged_rfid FROM product_log, ORDER BY Timestamp DESC limit 1;';
+		($pdo->query($sql);
+
+	// Die $pdo-Variable setzen wir auf null (die Connection wird damit geschlossen)
+	$pdo = null;
+ }
 
 //-----------------------------------------------------
 // Funktion Connection
@@ -47,7 +67,7 @@ function setProduct() {
 	  // Verbindung als Funktion
     function Connection(){
 	
-        // Der Connector (PDO); Diese Anmlededaten könnten auch ausgelagert werden. 
+        // Der Connector (PDO); Diese Anmelededaten könnten auch ausgelagert werden. 
 		$connection = new PDO('mysql:host=localhost;dbname=hermes_core', 'hermes_appusr', 'ZmuFbj2or2KPqFyn');
 
         // Errorhandling 
@@ -55,7 +75,7 @@ function setProduct() {
 	    	die('MySQL ERROR: ' . mysql_error());
 		}
 
-		// Zum Schluss geben wir den Rückgabewert aus
+			// Zum Schluss geben wir den Rückgabewert aus
         	return $connection;
 	}
 

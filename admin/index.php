@@ -2,7 +2,7 @@
 
 /*
 * Author: Sven Gasser
-* Content: 
+* Content: index of /admin; Used for varoius functions
 */
 	// Inkludieren der erstellten Funktionen 
 	include("../resources/libary/function.php"); 	
@@ -14,7 +14,7 @@
    <head>
 	   <!-- Dieser Titel wird im Browser-Tab angezeigt. -->
 	  <title> RFID Scanner </title>
-	  
+
 	  <!-- Einbinden von main.css -->
 	  <link rel="stylesheet" href="/css/main.css">
    </head>
