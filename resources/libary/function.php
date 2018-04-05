@@ -6,6 +6,28 @@
 */
 
 //-----------------------------------------------------
+// Funktion Connection
+//-----------------------------------------------------
+
+/* Diese Funktion wird für die DB-Anbindung benötigt. */
+
+	  // Verbindung als Funktion
+    function Connection(){
+	
+        // Der Connector (PDO); Diese Anmelededaten könnten auch ausgelagert werden. 
+		$connection = new PDO('mysql:host=localhost;dbname=hermes_core', 'hermes_appusr', 'ZmuFbj2or2KPqFyn'); // Warum die Datenbank wohl Hermes heisst? Hermes ist der Gott der Kunsthändler. Das Entwicklen einer Webapplikation ist ebenfalls eine Art Kunsthandel.
+
+        // Errorhandling 
+		if (!$connection) {
+	    	die('MySQL ERROR: ' . mysql_error());
+		}
+
+			// Zum Schluss geben wir den Rückgabewert aus
+        	return $connection;
+	}
+
+
+//-----------------------------------------------------
 // Funktion getProduct
 //-----------------------------------------------------
 
@@ -14,29 +36,31 @@
 function getProduct() {
 
 	// Neue Datenbankverbindung als Variable pdo
-	$pdo=Connection()
+	$newConn=Connection()
 
 		// Die Abfrage nach der RFID-ID. Dabei wird der letze Scan ausgelesen (letzer Scan wird anhand der Zeit ermittelt und dann mittels Selektor ausgewählt)
-		$sql = 'SELECT product_logged_rfid FROM product_log, ORDER BY Timestamp DESC limit 1;';
-		($pdo->query($sql);
+		$sql = "SELECT product_product_id FROM product_log, ORDER BY Timestamp DESC limit 1";
 
-		// Der Inhalt der Query $sql wird an $rfid_id zugewiesen
-		$id = $sql;
+		// Abfrage ausführen
+		($newConn->query($sql);
 
-		// Neue Abfrage nach dem Produkt, Variable $sql wird überschrieben
-		$sql = 'SELECT * FROM product WHERE product_rfid = '$rfid_id';';
+		// Neue Abfrage nach der Produkt-Sorte in product des entsprechendes Produktes mit der product_id $sql
+		$query = "SELECT product_variety_product_variety_id FROM product WHERE product_id = $sql";
 
-			// Ausgabe des Produktes 
-			
+		// Abfrage ausführen
+		($newConn->query($query);
 
-			foreach ($conn->query($sql) as $row) {
-				print $row['name'] . "\t";
+			// Ausgabe des Produktes
+			echo "";
+
+			foreach ($pdo->query($sql) as $row) {
+				print $row[''] . "\t";
 				print $row['color'] . "\t";
 				print $row['calories'] . "\n";
 			}
 
 	// Die $pdo-Variable setzen wir auf null (die Connection wird damit geschlossen)
-	$pdo = null;
+	$newConn = null;
 	
 }
 
@@ -48,39 +72,18 @@ function getProduct() {
 
 function setProduct() {
 
-	$pdo=Connection()
+	$newConn=Connection()
 
 		// Neue Daten hinzufügen
-		$sql = 'SELECT product_logged_rfid FROM product_log, ORDER BY Timestamp DESC limit 1;';
-		($pdo->query($sql);
+		$sql = "";
+		($newConn->query($sql);
 
 	// Die $pdo-Variable setzen wir auf null (die Connection wird damit geschlossen)
-	$pdo = null;
+	$newConn = null;
  }
 
 //-----------------------------------------------------
-// Funktion Connection
-//-----------------------------------------------------
-
-/* Diese Funktion wird für die DB-Anbindung benötigt. */
-
-	  // Verbindung als Funktion
-    function Connection(){
-	
-        // Der Connector (PDO); Diese Anmelededaten könnten auch ausgelagert werden. 
-		$connection = new PDO('mysql:host=localhost;dbname=hermes_core', 'hermes_appusr', 'ZmuFbj2or2KPqFyn');
-
-        // Errorhandling 
-		if (!$connection) {
-	    	die('MySQL ERROR: ' . mysql_error());
-		}
-
-			// Zum Schluss geben wir den Rückgabewert aus
-        	return $connection;
-	}
-
-//-----------------------------------------------------
-// Funktion Connection
+// Funktion setLog
 //-----------------------------------------------------
 
 /* Diese Funktion loggt die Produktescans, um Statistiken zu erstellen */
@@ -91,8 +94,26 @@ function setProduct() {
 		$newConn = Connection();
 
 		// Jeder Produktescan wird in der Datenbank erfasst
-		$query = ""
-		($pdo->query($query)
+		$query = "";
+
+		// Daten in DB einfügen
+		($newConn->query($query)
 	}
+
+//-----------------------------------------------------
+// Funktion getLog
+//-----------------------------------------------------
+
+/* Diese Funktion gibt den Log des Produktescans aus, um Statistiken zu erstellen */
+/* Geplant für Data Science. Mittels chart.js sollten Daten visualisiert werden.  */
+	
+function getLog() {
+		
+	// Neue Datenbankverbindung aufbauen
+	$newConn = Connection();
+
+	$query = ""
+	($pdo->query($query)
+}
 
 ?>

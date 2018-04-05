@@ -6,12 +6,8 @@
 */
 	// Inkludieren der erstellten Funktionen 
 	include("resources/libary/function.php"); 	
-
-	$link=Connection();
-	$sql = "SELECT * FROM products";
 	
-	//Funktion einbinden
-  ?>
+?>
 
 <!--Beginn HTML-->
 <html>
@@ -28,11 +24,9 @@
 		</div>
 
 			<?php 
-		     	// getScan wird auf false gesetzt. 
-				$getScan = false;
-		
+			    		
 				// Schreiben des Produkts in eine  Variable
-				$output = getProduct();
+				
 
 				// Das Produkt ausgeben (Funktion getProduct)
 				print $output;
